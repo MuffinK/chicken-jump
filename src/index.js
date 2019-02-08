@@ -1,5 +1,5 @@
 const hammer = require('hammerjs');
-
+const axios = require('axios');
 var THREE = window.THREE = require('three');
 
 var scene = new THREE.Scene();
@@ -44,11 +44,19 @@ domData.score = 0;
 	var gLTFLoader = new THREE.GLTFLoader();
 	const loadGltf = gltfFile => new Promise((res, rej) => gLTFLoader.load(gltfFile, res));
 	Promise.all([
+		axios('resource/models/jump.glb', {onDownloadProgress: function (progressEvent) {
+			console.log(progressEvent.loaded / progressEvent.total);
+		}}),
+		axios('resource/models/tree.glb'),
+		axios('resource/models/land.glb'),
+		axios('resource/models/coin.glb')
+	]).then(()=>
+	Promise.all([
 			loadGltf('resource/models/jump.glb'),
 			loadGltf('resource/models/tree.glb'),
 			loadGltf('resource/models/land.glb'),
 			loadGltf('resource/models/coin.glb')
-		])
+		]))
 		.then(([chickenModel, treeModel, landModel, coinModel]) => {
 	
 			const chicken = chickenModel.scene;

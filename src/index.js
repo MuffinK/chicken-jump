@@ -29,11 +29,9 @@ var domData = new Proxy({}, {
     return Reflect.get(target, key, receiver);
   },
   set: function (target, key, value, receiver) {
-		console.log(`setting ${key}!`);
-		
-		const scoreDom = document.getElementById('score');
-		scoreDom.innerHTML = value;
-    return Reflect.set(target, key, value, receiver);
+			const scoreDom = document.getElementById(key);
+			scoreDom.innerHTML = value;
+			return Reflect.set(target, key, value, receiver);
   }
 });
 
@@ -44,9 +42,12 @@ domData.score = 0;
 	var gLTFLoader = new THREE.GLTFLoader();
 	const loadGltf = gltfFile => new Promise((res, rej) => gLTFLoader.load(gltfFile, res));
 	Promise.all([
-		axios('resource/models/jump.glb', {onDownloadProgress: function (progressEvent) {
-			console.log(progressEvent.loaded / progressEvent.total);
-		}}),
+		axios('resource/models/jump.glb', {
+			onDownloadProgress: function (progressEvent) {
+				// console.log('🐔'.repeat(Math.floor(progressEvent.loaded * 10 / progressEvent.total)));
+				domData.start = '🐔'.repeat(Math.floor(progressEvent.loaded * 10 / progressEvent.total) + 1);
+			}
+		}),
 		axios('resource/models/tree.glb'),
 		axios('resource/models/land.glb'),
 		axios('resource/models/coin.glb')
@@ -58,7 +59,7 @@ domData.score = 0;
 			loadGltf('resource/models/coin.glb')
 		]))
 		.then(([chickenModel, treeModel, landModel, coinModel]) => {
-	
+				domData.start = 'start game➡️'
 			const chicken = chickenModel.scene;
 			chicken.rotation.y = -Pi / 2;
 			const tree = treeModel.scene;

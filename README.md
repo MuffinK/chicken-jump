@@ -15,7 +15,9 @@ A 3d game Imitating Alipay's ant farm using [threejs](https://threejs.org) and m
 6. UI gesture control -> [hammerjs](https://hammerjs.github.io/)
 
 ## models
-model files in [models folder](/resource/models/),
+model binary files in [models folder](/resource/models/)
+
+blender source files in [blender folder](/blender)
 
 ## furture task
 

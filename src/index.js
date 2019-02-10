@@ -1,6 +1,8 @@
 const hammer = require("hammerjs");
 const axios = require("axios");
-var THREE = (window.THREE = require("three"));
+const THREE = (window.THREE = require("three"));
+const WebVR = require('./WebVR.js').default;
+
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(
@@ -17,7 +19,9 @@ scene.add(light);
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-window.document.body.appendChild(renderer.domElement);
+// window.document.body.appendChild(renderer.domElement);
+document.body.appendChild( WebVR.createButton( renderer ) );
+renderer.vr.enabled = true;
 
 var globalSpeed = 1;
 const landSpeed = 0.88;
@@ -197,7 +201,7 @@ domData.score = 0;
 					landAndChickenAnimation();
 				}
 				coinRotateAnimation();
-				requestAnimationFrame(animate);
+				// requestAnimationFrame(animate);
 				renderer.render(scene, camera);
 			};
 			renderer.render(scene, camera);
@@ -205,7 +209,8 @@ domData.score = 0;
 			const startButton = document.getElementById("start");
 			startButton.onclick = () => {
 				startButton.style.display = "none";
-				animate();
+				// animate();
+				renderer.setAnimationLoop( animate );
 			};
 		});
 })();

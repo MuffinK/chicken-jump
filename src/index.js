@@ -59,7 +59,6 @@ domData.score = 0;
 	Promise.all([
 		axios("resource/models/jump.glb", {
 			onDownloadProgress: function(progressEvent) {
-				// console.log('🐔'.repeat(Math.floor(progressEvent.loaded * 10 / progressEvent.total)));
 				domData.start =
 					"loading:" +
 					"🐔".repeat(

@@ -23,7 +23,7 @@ blender source files in [blender folder](/blender)
 
 ## furture task
 
-- [ ] chicken's animation
+- [x] chicken's animation
 - [ ] better caching model files with service worker
 - [ ] [webVR](https://threejs.org/docs/index.html#manual/en/introduction/How-to-create-VR-content)
 

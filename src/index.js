@@ -55,7 +55,6 @@ domData.score = 0;
 	Promise.all([
 		axios("resource/models/jump.glb", {
 			onDownloadProgress: function(progressEvent) {
-				// console.log('🐔'.repeat(Math.floor(progressEvent.loaded * 10 / progressEvent.total)));
 				domData.start =
 					"loading:" +
 					"🐔".repeat(
@@ -83,6 +82,12 @@ domData.score = 0;
 			const land = landModel.scene;
 			const coin = coinModel.scene;
 
+			const coinAnimation = coinModel.animations[0];
+			const chickenAnimations = chickenModel.animations;
+			const chickenAnimationMixer = new THREE.AnimationMixer(chicken);
+			chickenAnimations.forEach(ani=>chickenAnimationMixer.clipAction(ani).play());
+			const clock = new THREE.Clock();
+
 			(function initTouchActions() {
 				const cvs = new hammer(renderer.domElement);
 				let startPosition = 0;
@@ -98,8 +103,6 @@ domData.score = 0;
 				});
 			})();
 
-			const coinAnimation = coinModel.animations[0];
-			const clock = new THREE.Clock();
 
 			let coinMixArray = [];
 
@@ -179,9 +182,10 @@ domData.score = 0;
 				chicken.position.y += speed;
 				speed = speed + a;
 			};
-			const coinRotateAnimation = () => {
+			const buildinAnimations = () => {
 				const delta = clock.getDelta();
 				coinMixArray.forEach(cm => cm[0].update(delta));
+				chickenAnimationMixer.update(delta * 1.7 * globalSpeed)
 			};
 			const animate = function() {
 				let scaleRate = landGroup[landGroup.length - 1][0].scale.x;
@@ -196,7 +200,7 @@ domData.score = 0;
 					chicken.position.y < 0 && !chickenOnLand();
 					landAndChickenAnimation();
 				}
-				coinRotateAnimation();
+				buildinAnimations();
 				requestAnimationFrame(animate);
 				renderer.render(scene, camera);
 			};

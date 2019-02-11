@@ -1,5 +1,7 @@
 A 3d game Imitating Alipay's ant farm using [threejs](https://threejs.org) and modeling using [blender](https://www.blender.org);
 
+![](/pics/demo.jpg)
+
 ## try it
 [github page](https://muffink.github.io/chicken-jump/index.1.html)
 

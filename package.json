@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "hammerjs": "^2.0.8",
-    "three": "^0.99.0"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "prettier": "^1.16.4",
